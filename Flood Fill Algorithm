@@ -1,0 +1,47 @@
+#include<iostream>
+using namespace std;
+
+void flood_fill_util(int screen[8][8] , int prv_clr , int new_clr , int r , int c){
+
+// Base cases
+    if (r < 0 || r >= 8 || c < 0 || c >= 8)  return;
+    if (screen[r][c] != prv_clr)  return;
+    if (screen[r][c] == new_clr)  return;
+
+    // Replace the color at (x, y)
+    screen[r][c] = new_clr;
+
+
+if(r-1 >= 0) flood_fill_util(screen , prv_clr , new_clr , r-1 , c);
+if(r+1 <= 8-1) flood_fill_util(screen , prv_clr , new_clr , r+1 , c);
+if(c-1 >= 0) flood_fill_util(screen , prv_clr , new_clr , r , c-1);
+if(c+1 <= 8-1) flood_fill_util(screen , prv_clr , new_clr , r , c+1);
+
+}
+
+void flood_fill(int screen[8][8] , int r , int c , int new_clr){
+    if(screen[r][c] == new_clr) return;
+    flood_fill_util(screen , screen[r][c] , new_clr , r , c);
+}
+
+int main(){
+int screen[][8]={      {1, 1, 1, 1, 1, 1, 1, 1},
+                      {1, 1, 1, 1, 1, 1, 0, 0},
+                      {1, 0, 0, 1, 1, 0, 1, 1},
+                      {1, 2, 2, 2, 2, 0, 1, 0},
+                      {1, 1, 1, 2, 2, 0, 1, 0},
+                      {1, 1, 1, 2, 2, 2, 2, 0},
+                      {1, 1, 1, 1, 1, 2, 1, 1},
+                      {1, 1, 1, 1, 1, 2, 2, 1}, };
+
+    int r,c , new_clr;
+    cin>>r>>c>>new_clr;
+
+    flood_fill(screen , r , c , new_clr);
+
+    for(int i=0 ; i<8 ; i++){
+        for(int j=0 ; j<8 ; j++){
+            cout<<screen[i][j]<<" ";
+        }cout<<endl;
+    }
+}
