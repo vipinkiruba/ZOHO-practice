@@ -1,0 +1,36 @@
+#include<iostream>
+using namespace std;
+
+int addarr(int arr[] , int start , int end){
+    int temp=0 , i;
+    if(start<=end){
+        for( i=start ; i<=end ; i++){
+            temp = temp+arr[i];
+            }
+    }
+    else{
+        for( i=start ; i>=end ; i--){
+        temp = temp+arr[i];
+        }
+    }
+
+return temp;
+}
+
+int equalindex(int arr[] , int n){
+
+for(int i=1 ; i<n-1 ; i++){
+    if(addarr(arr , i-1 , 0) == addarr(arr , i+1 , n-1)) return i;
+} return -1;
+
+}
+
+int main(){
+int n;
+cin>>n;
+int arr[n];
+for(int i =0 ; i<n ; i++){
+    cin>>arr[i];
+}
+cout<<equalindex(arr , n);
+}
